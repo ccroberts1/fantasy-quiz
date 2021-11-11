@@ -8,14 +8,10 @@ var introText = $("#intro");
 var questionText = $("<h2>");
 $(".question-area").append(questionText);
 
-//Creates a ul and append to the question-area section, will be used as the area for the possible answers.
-var questionAnswerList = $("<ul>");
-$(".question-area").append(questionAnswerList);
-
 //Array of objects to serve as the source for questions
 var questions = [ {
     id: 1,
-    txt:"Which American author is known in fantasy for the Earthsea Cycle series?", 
+    txt:"Which American author is best known in fantasy for the Earthsea Cycle series?", 
     ans1:"Rebecca Roanhorse",
     ans2:"Ursula K. LeGuin",
     ans3:"Alyssa Wong",
@@ -63,20 +59,20 @@ function startQuestion(event) {
     $(questionText).text(questions[0].txt);
 
 //Next steps: maybe map the answers to an array and iterate over the array to display the possible answers? Also maybe define the lis globally, then just change the text inside of this function. 
-    var answer1 = $("<li>").text(questions[0].ans1); 
-    $("ul").append(answer1);
+    var answer1 = $("<button>").text(questions[0].ans1).addClass("button"); 
+    $(".question-area").append(answer1);
 
       $(questionText).text(questions[0].txt);
-    var answer2 = $("<li>").text(questions[0].ans2); 
-    $("ul").append(answer2);
+    var answer2 = $("<button>").text(questions[0].ans2).addClass("button"); 
+    $(".question-area").append(answer2);
 
       $(questionText).text(questions[0].txt);
-    var answer3 = $("<li>").text(questions[0].ans3); 
-    $("ul").append(answer3);
+    var answer3 = $("<button>").text(questions[0].ans3).addClass("button"); 
+    $(".question-area").append(answer3);
 
       $(questionText).text(questions[0].txt);
-    var answer4 = $("<li>").text(questions[0].ans4); 
-    $("ul").append(answer4);
+    var answer4 = $("<button>").text(questions[0].ans4).addClass("button"); 
+    $(".question-area").append(answer4);
 
  //Select the first object from the questions array. Use a for each loop to start looping through the array. 
     // $.each(questions, function(index, object) {

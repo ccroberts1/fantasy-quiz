@@ -4,10 +4,18 @@ var startBtn = $(".btn-start");
 var questionArea = $(".question-area");
 
 var introText = $("#intro");
+//Creates an h2 for questionText
+var questionText = $("<h2>");
+$(".question-area").append(questionText);
+
+//Creates a ul and append to the question-area section, will be used as the area for the possible answers.
+var questionAnswerList = $("<ul>");
+$(".question-area").append(questionAnswerList);
 
 //Array of objects to serve as the source for questions
 var questions = [ {
-    question:"Which American author is most well-known for the Earthsea Cycle series?", 
+    id: 1,
+    txt:"Which American author is known in fantasy for the Earthsea Cycle series?", 
     ans1:"Rebecca Roanhorse",
     ans2:"Ursula K. LeGuin",
     ans3:"Alyssa Wong",
@@ -15,7 +23,8 @@ var questions = [ {
     },
 
     {
-        question:"Which American author became the first author to win the Hugo award for best novel for three consecutive years for the Broken Earth series?",
+        id: 2,
+        txt:"Which American author became the first author to win the Hugo award for best novel for three consecutive years for the Broken Earth series?",
         ans1:"Nnedi Okorafor",
         ans2:"Tasha Suri",
         ans3:"N.K. Jemisin",
@@ -23,7 +32,8 @@ var questions = [ {
     },
 
     {
-      question:"Which British author is the self-proclaimed Lord Grimdark and well-known for the flawed characters and dark humor in the First Law and Age of Madness series?",
+      id: 3,  
+      txt:"Which British author is the self-proclaimed Lord Grimdark and well-known for the flawed characters and dark humor in the First Law and Age of Madness series?",
         ans1:"Joe Abercrombie",
         ans2:"Mark Lawrence",
         ans3:"George R.R. Martin",
@@ -31,17 +41,14 @@ var questions = [ {
     },
 
         {
-    question:"Which British author is known as the father of modern fantasy?",
+        id: 4,
+        txt:"Which British author is known as the father of modern fantasy?",
         ans1:"Richard K. Morgan",
         ans2:"Ed McDonald",
         ans3:"Robin Hobb",
         ans4:"J.R.R. Tolkien"
         }
 ];
-
-//Picks a random question object from the questions array
-var randomQuestion = $(questions[Math.floor(Math.random() * questions.length)]);
-console.log(randomQuestion);
 
 //displays question when start button is clicked
 function startQuestion(event) {
@@ -50,20 +57,45 @@ function startQuestion(event) {
     $("#intro").hide();
     $("#title").hide();
     $(".btn-start").hide();
-    //Select an object from the questions array
     
-    //Insert object into an h2 element, append to the question area section
-    var newQuestion=$("<h2>").text(randomQuestion);
-    $(".question-area").append(newQuestion);
-    //Create a ul and append to the question-area section
-    var questionAnswerList = $("<ul>");
-    $(".question-area").append(questionAnswerList);
-    //Display the values for the a1, 2, 3, 4 keys
+   
+//Displays the starting question text and possible answers
+    $(questionText).text(questions[0].txt);
+
+//Next steps: maybe map the answers to an array and iterate over the array to display the possible answers? Also maybe define the lis globally, then just change the text inside of this function. 
+    var answer1 = $("<li>").text(questions[0].ans1); 
+    $("ul").append(answer1);
+
+      $(questionText).text(questions[0].txt);
+    var answer2 = $("<li>").text(questions[0].ans2); 
+    $("ul").append(answer2);
+
+      $(questionText).text(questions[0].txt);
+    var answer3 = $("<li>").text(questions[0].ans3); 
+    $("ul").append(answer3);
+
+      $(questionText).text(questions[0].txt);
+    var answer4 = $("<li>").text(questions[0].ans4); 
+    $("ul").append(answer4);
+
+ //Select the first object from the questions array. Use a for each loop to start looping through the array. 
+    // $.each(questions, function(index, object) {
+
+    //      //Insert object.question into an h2 element, append to the question area section
+        
+    //     var newQuestion=$("<h2>").text(object.txt);
+    //     $(".question-area").append(newQuestion);
+
+    //      //Display the values for the a1, 2, 3, 4 keys as new lis in the newly created ul
+    //     var answer1 = $("<li>").text(object.ans1); 
+    //     $("ul").append(answer1);
+    // });
+
+    //Once quiz starts, timer should display in the top right hand corner and show much time is left. Use setInterval and clearInterval for timer. 
+
 }
 
 startBtn.click(startQuestion);
-
-//Once quiz starts, timer should display in the top right hand corner and show much time is left. Use setInterval and clearInterval for timer. 
 
 
 //When the question is answered, it progresses to another question

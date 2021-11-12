@@ -4,7 +4,7 @@ body {
   font-family: "Cormorant Garamond", serif;
   background-color: #22223b;
   color: #f2e9e4;
-  font-size: 16px;
+  font-size: 28px;
 }
 
 h1 {
@@ -14,18 +14,23 @@ h1 {
 a {
   color: #f2e9e4;
   margin-bottom: 5rem;
+  text-decoration: none;
+}
+
+/* Header Styling */
+
+.timer {
+  color: #f2e9e4;
 }
 
 /* Question Box Styling */
 
 .question-area {
   background-color: #4a4e69;
-  width: 50%;
-  padding: 5rem 2rem;
-  text-align: center;
 }
 
-.button {
+.button,
+.btn-answer {
   background-color: #9a8c98;
   transition-duration: 0.4s;
   color: #22223b;

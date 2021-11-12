@@ -4,47 +4,58 @@ var startBtn = $(".btn-start");
 var questionArea = $(".question-area");
 
 var introText = $("#intro");
+
 //Creates an h2 for questionText
 var questionText = $("<h2>");
 $(".question-area").append(questionText);
 
+//Sets the starting value for questions array
+var questionIndex = 0;
+
 //Array of objects to serve as the source for questions
-var questions = [ {
-    id: 1,
-    txt:"Which American author is best known in fantasy for the Earthsea Cycle series?", 
-    ans1:"Rebecca Roanhorse",
-    ans2:"Ursula K. LeGuin",
-    ans3:"Alyssa Wong",
-    ans4:"Ursula Vernon"
+var question = [ 
+    {
+    text:"Which American author is best known in fantasy for the Earthsea Cycle series?", 
+    answers: [
+        {answer: "Rebecca Roanhorse", correct: false},
+        {answer:"Ursula K. LeGuin", correct: true},
+        {answer:"Alyssa Wong", correct: false},
+        {answer:"Ursula Vernon", correct: false}
+    ]
     },
 
     {
-        id: 2,
-        txt:"Which American author became the first author to win the Hugo award for best novel for three consecutive years for the Broken Earth series?",
-        ans1:"Nnedi Okorafor",
-        ans2:"Tasha Suri",
-        ans3:"N.K. Jemisin",
-        ans4:"Robin Hobb"
+        text:"Which American author became the first author to win the Hugo award for best novel for three consecutive years for the Broken Earth series?",
+        answers: [
+        {answer: "Nnedi Okorafor", correct: false},
+        {answer:"Tasha Suri", correct: false},
+        {answer:"N.K. Jemisin", correct: true},
+        {answer:"Robin Hobb" , correct: false}
+        ]
     },
 
     {
-      id: 3,  
-      txt:"Which British author is the self-proclaimed Lord Grimdark and well-known for the flawed characters and dark humor in the First Law and Age of Madness series?",
-        ans1:"Joe Abercrombie",
-        ans2:"Mark Lawrence",
-        ans3:"George R.R. Martin",
-        ans4:"Patrick Rothfuss"  
+      text:"Which British author is the self-proclaimed Lord Grimdark and well-known for the flawed characters and dark humor in the First Law and Age of Madness series?",
+       answers: [
+        {answer: "Joe Abercrombie", correct: true},
+        {answer:"Mark Lawrence", correct: false},
+        {answer:"George R.R. Martin", correct: false},
+        {answer:"Christopher Ruocchio" , correct: false}
+        ] 
     },
 
         {
-        id: 4,
-        txt:"Which British author is known as the father of modern fantasy?",
-        ans1:"Richard K. Morgan",
-        ans2:"Ed McDonald",
-        ans3:"Robin Hobb",
-        ans4:"J.R.R. Tolkien"
-        }
+        text:"Which British author is widely considered the father of modern fantasy?",
+        answers: [
+        {answer: "Ed McDonald", correct: false},
+        {answer:"Brian McClellan", correct: false},
+        {answer:"Richard K. Morgan", correct: false},
+        {answer:"J.R.R. Tolkien" , correct: true}
+        ]
+    }
 ];
+
+//Function Declarations
 
 //displays question when start button is clicked
 function startQuestion(event) {
@@ -53,51 +64,51 @@ function startQuestion(event) {
     $("#intro").hide();
     $("#title").hide();
     $(".btn-start").hide();
-    
-   
-//Displays the starting question text and possible answers
-    $(questionText).text(questions[0].txt);
+    nextQuestion();
 
-//Next steps: maybe map the answers to an array and iterate over the array to display the possible answers? Also maybe define the lis globally, then just change the text inside of this function. 
-    var answer1 = $("<button>").text(questions[0].ans1).addClass("button"); 
-    $(".question-area").append(answer1);
+     //Once quiz starts, timer should display in the top right hand corner and show much time is left. Use setInterval and clearInterval for timer. 
+    var sec = 30;
+    var addTimer = $("<span>").addClass("timer").text("30");
+    $(".timer").append(addTimer);
+    var timerFunction = setInterval(function () {
+        $(addTimer).text(sec--);
+        if (sec === 0) {
+            gameOver();
+            clearInterval(timerFunction);
+        };
+    }, 1000);
 
-      $(questionText).text(questions[0].txt);
-    var answer2 = $("<button>").text(questions[0].ans2).addClass("button"); 
-    $(".question-area").append(answer2);
+};
 
-      $(questionText).text(questions[0].txt);
-    var answer3 = $("<button>").text(questions[0].ans3).addClass("button"); 
-    $(".question-area").append(answer3);
+function nextQuestion() {
+    $(questionText).text(question[questionIndex].text);
 
-      $(questionText).text(questions[0].txt);
-    var answer4 = $("<button>").text(questions[0].ans4).addClass("button"); 
-    $(".question-area").append(answer4);
-
- //Select the first object from the questions array. Use a for each loop to start looping through the array. 
-    // $.each(questions, function(index, object) {
-
-    //      //Insert object.question into an h2 element, append to the question area section
+    $.each(question[questionIndex].answers, function (index, val) {
+        var answerBtn = $("<button>").text(val.answer).addClass("btn-answer"); 
+        $(".question-area").append(answerBtn);
         
-    //     var newQuestion=$("<h2>").text(object.txt);
-    //     $(".question-area").append(newQuestion);
+        function checkAnswer(event) {
+       if (val.correct) {
+           questionIndex++;
+           
+           nextQuestion();
+       } else {
+            sec--;
+            nextQuestion();
+       };
+        };
 
-    //      //Display the values for the a1, 2, 3, 4 keys as new lis in the newly created ul
-    //     var answer1 = $("<li>").text(object.ans1); 
-    //     $("ul").append(answer1);
-    // });
+        answerBtn.click(checkAnswer);
+    });
 
-    //Once quiz starts, timer should display in the top right hand corner and show much time is left. Use setInterval and clearInterval for timer. 
-
-}
-
-startBtn.click(startQuestion);
-
-
-//When the question is answered, it progresses to another question
+ //When the question is answered, it progresses to another question
 //If the question is answered incorrectly, time is removed from the clock
-//If else statement for question logic
 
-//When all questions are answered or the timer reaches 0, game is over. If statement
+};
 
 //At gameover, should show an h1 "All done!", a p element that lists "Your final score + final score" and an input for them to enter their initials and a submit button. Then that info should be saved to localStorage. 
+function gameOver() {
+    $(".title").text("All Done!");
+};
+
+startBtn.click(startQuestion);

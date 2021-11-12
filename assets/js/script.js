@@ -15,7 +15,6 @@ var sec = 30;
 
 var scoreCounter = 0;
 
-//Sets the starting value for questions array
 var questionIndex = 0;
 
 //Array of objects to serve as the source for questions
@@ -63,12 +62,12 @@ var question = [
 
 //Function Declarations
 
-//displays question when start button is clicked
+//Displays initial question when start button is clicked
 function startQuestion(event) {
   event.preventDefault;
   nextQuestion();
 
-  //Once quiz starts, timer should display in the top right hand corner and show much time is left. Use setInterval and clearInterval for timer.
+  //Once quiz starts, timer displays in a top column and counts down
   var addTimer = $("<span>").addClass("timer").text("30");
   $(".timer").append(addTimer);
   timerFunction = setInterval(function() {
@@ -80,6 +79,7 @@ function startQuestion(event) {
   }, 1000);
 }
 
+//Displays the next question and checks for valid answers before going to next object in the array. Executes gameOver if the end of the array is reached. 
 function nextQuestion() {
   $(".question-area").empty();
 
@@ -121,7 +121,7 @@ function nextQuestion() {
   });
 }
 
-//At gameover, should show an h1 "All done!", a p element that lists "Your final score + final score" and an input for them to enter their initials and a submit button. Then that info should be saved to localStorage.
+//gameOver ends the quiz, saves user scores and displays high scores
 function gameOver() {
   clearInterval(timerFunction);
   $(".timer").hide();
@@ -157,7 +157,7 @@ function gameOver() {
 }
 
 
-
+//Displays high scores and provides functionality for clear high scores button and reset quiz buttons
 function displayScores() {
   $(".question-area").empty();
   $(".question-area").append($("<h1>").text("High Scores"));
@@ -188,6 +188,8 @@ function highScores() {
   gameOver();
   displayScores();
 }
+
+//Event Listeners for starting the quiz and viewing high scores as an interrupt
 
 startBtn.click(startQuestion);
 

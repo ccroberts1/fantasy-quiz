@@ -10,3 +10,6 @@ The quiz is centered around fantasy authors and once the user clicks on the star
 
 ## Link
 [Deployed Application](https://ccroberts1.github.io/fantasy-quiz/)
+
+## License
+MIT

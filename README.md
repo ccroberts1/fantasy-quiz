@@ -13,3 +13,7 @@ The quiz is centered around fantasy authors and once the user clicks on the star
 
 ## License
 MIT
+
+## Contact Info
+- Email: caitlin.coy.roberts@gmail.com
+- Twitter: https://twitter.com/caitlincroberts
